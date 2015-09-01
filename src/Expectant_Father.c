@@ -5,20 +5,25 @@ This is my first watch face and my first program in C. The code could be better.
 I couldn't get mktime() to work so I had to come up with a different way to subtract dates.
 You need to enter the approximate conception date and recompile. 
 You can also modify the code to enter the name of your wife and future baby.
-
 */
-
-
 #include <pebble.h>
+#include "Expectant_Father.h"
 
+/*** GLOBALS ***/
+
+// If basalt, create status bar layer
+#ifdef PBL_PLATFORM_BASALT
+	static StatusBarLayer *s_status_bar;
+#endif
+	
 //conception date
-int year_concep = 2015, month_concep =06, day_concep =07;
+int year_concep = 2015, month_concep =05, day_concep =24;
 
 Window *window;
 
 TextLayer *wifeLayer;
 TextLayer *weekLayer;
-TextLayer *papaLayer;
+TextLayer *babyLayer;
 TextLayer *compLayer;
 TextLayer *fruitLayer;
 
@@ -111,7 +116,9 @@ char* fruits[] = {
   "    Small Pumpkin"
 };
 
-
+//******************************************************************************
+//
+//******************************************************************************
 void itoa2(int num, char* buffer) 
 {
     const char digits[10] = "0123456789";
@@ -132,6 +139,9 @@ void itoa2(int num, char* buffer)
     buffer[1] = digits[num % 10];
 }
 
+//******************************************************************************
+//
+//******************************************************************************
 void replacetxt(char str[], char* buffer) 
 {
     for (unsigned int i = 0; i < strlen(str); i++)
@@ -140,7 +150,9 @@ void replacetxt(char str[], char* buffer)
     }
 }
 
+//******************************************************************************
 //convert date to y_day
+//******************************************************************************
 long day_year(int d, int m, int y)
 {
 	m = (m + 9) % 12; 
@@ -149,7 +161,9 @@ long day_year(int d, int m, int y)
 }
 
 
+//******************************************************************************
 // Weeks since conception date
+//******************************************************************************
 long get_weeks() 
 {
 	time_t temp = time(NULL); 
@@ -163,12 +177,15 @@ long get_weeks()
 	
 }
 
+//******************************************************************************
+//
+//******************************************************************************
 static void update()
 {
 
-	static char wifeText[] = "My wife is    weeks pregnant."; 
+	static char wifeText[] = "Sheree is    weeks pregnant."; 
 	static char weekText[] = "XX";
-	static char papaText[] = "  The baby is the"; 
+	static char papaText[] = "  And Taro is the"; 
 	static char compText[] = "              ";
 	static char fruitText[] = "                 "; 
 
@@ -180,48 +197,63 @@ static void update()
 
 	text_layer_set_text(wifeLayer,wifeText);
 	text_layer_set_text(weekLayer,weekText);
-	text_layer_set_text(papaLayer,papaText);
+	text_layer_set_text(babyLayer,papaText);
 	text_layer_set_text(compLayer,compText);
 	text_layer_set_text(fruitLayer,fruitText);
 }
 
-// static void tick_handler(struct tm *tick_time, TimeUnits units_changed) 
-// {
-// 	update();
-// }
+//******************************************************************************
+//
+//******************************************************************************
+static void tick_handler(struct tm *tick_time, TimeUnits units_changed) 
+{
+	update();
+}
 
+//******************************************************************************
+//
+//******************************************************************************
 static void main_window_load(Window *window)
 { 
+	// If Basalt, add status bar with time
+	#ifdef PBL_PLATFORM_BASALT
+		Layer *window_layer = window_get_root_layer(window);
+		// Set up the status bar last to ensure it is on top of other Layers
+		s_status_bar = status_bar_layer_create();
+		layer_add_child(window_layer, status_bar_layer_get_layer(s_status_bar));
+	#endif
+	
+	// Set background color
 	window_set_background_color(window, GColorWhite);
 
 	// Init the text layer used to show the weeks
-	weekLayer = text_layer_create(GRect(85, 0, 144-20 /* width */, 168-54 /* height */));
+	weekLayer = text_layer_create(GRect(85, TOP_OFFSET, 144-20 /* width */, 168-54 /* height */));
 	text_layer_set_text_color(weekLayer, GColorBlack);
 	text_layer_set_background_color(weekLayer, GColorClear);
 	text_layer_set_font(weekLayer, fonts_get_system_font(FONT_KEY_BITHAM_34_MEDIUM_NUMBERS));
 
 	// Init the text layer used to show the wife
-	wifeLayer = text_layer_create(GRect(5, 10, 144-20 /* width */, 168-54 /* height */));
+	wifeLayer = text_layer_create(GRect(5, 10 + TOP_OFFSET, 144-20 /* width */, 168-54 /* height */));
 	text_layer_set_text_color(wifeLayer, GColorBlack);
 	text_layer_set_background_color(wifeLayer, GColorClear);
 	text_layer_set_font(wifeLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
 
 	// Init the text layer used to show the baby
-	papaLayer = text_layer_create(GRect(0, 70, 144 /* width */, 168-54 /* height */));
-	text_layer_set_text_color(papaLayer, GColorWhite);
-	text_layer_set_background_color(papaLayer, GColorBlack);
-	text_layer_set_font(papaLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
-	text_layer_set_text_alignment(papaLayer, GTextAlignmentCenter);
+	babyLayer = text_layer_create(GRect(0, 70 + TOP_OFFSET, 144 /* width */, 168-54 /* height */));
+	text_layer_set_text_color(babyLayer, GColorWhite);
+	text_layer_set_background_color(babyLayer, GColorBlack);
+	text_layer_set_font(babyLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
+	text_layer_set_text_alignment(babyLayer, GTextAlignmentCenter);
 
 	// Init the text layer used to show the comparison
-	compLayer = text_layer_create(GRect(0, 97, 144 /* width */, 168-54 /* height */));
+	compLayer = text_layer_create(GRect(0, 97 + TOP_OFFSET, 144 /* width */, 168-54 /* height */));
 	text_layer_set_text_color(compLayer, GColorWhite);
 	text_layer_set_background_color(compLayer, GColorBlack);
 	text_layer_set_font(compLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
 	text_layer_set_text_alignment(compLayer, GTextAlignmentCenter);
 
 	// Init the text layer used to show the fruit
-	fruitLayer = text_layer_create(GRect(0, 125, 144 /* width */, 168-54 /* height */));
+	fruitLayer = text_layer_create(GRect(0, 125 + TOP_OFFSET, 144 /* width */, 168-54 /* height */));
 	text_layer_set_text_color(fruitLayer, GColorWhite);
 	text_layer_set_background_color(fruitLayer, GColorBlack);
 	text_layer_set_font(fruitLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
@@ -230,21 +262,27 @@ static void main_window_load(Window *window)
 	// Add it as a child layer to the Window's root layer
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(wifeLayer));
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(weekLayer));
-	layer_add_child(window_get_root_layer(window), text_layer_get_layer(papaLayer));
+	layer_add_child(window_get_root_layer(window), text_layer_get_layer(babyLayer));
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(compLayer));
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(fruitLayer));
 }
 
+//******************************************************************************
+//
+//******************************************************************************
 static void main_window_unload(Window *window) 
 {
 	//Destroy TextLayers
 	text_layer_destroy(wifeLayer);
 	text_layer_destroy(weekLayer);
-	text_layer_destroy(papaLayer);
+	text_layer_destroy(babyLayer);
 	text_layer_destroy(compLayer);
 	text_layer_destroy(fruitLayer);
 }
 
+//******************************************************************************
+//
+//******************************************************************************
 static void init() 
 {
 	window = window_create();
@@ -262,16 +300,22 @@ static void init()
 	update();
 	
 	// Register with TickTimerService
-// 	tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
+	tick_timer_service_subscribe(HOUR_UNIT, tick_handler);
 
 }
 
+//******************************************************************************
+//
+//******************************************************************************
 static void deinit() 
 {
 	// Destroy Window
 	window_destroy(window);
 }
 
+//******************************************************************************
+//
+//******************************************************************************
 int main(void) 
 {
   init();

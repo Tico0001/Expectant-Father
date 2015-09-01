@@ -7,7 +7,14 @@
     "longName": "Expectant Father",
     "projectType": "native",
     "resources": {
-        "media": []
+        "media": [
+            {
+                "file": "images/icon.PNG",
+                "menuIcon": true,
+                "name": "IMAGE_ICON",
+                "type": "png"
+            }
+        ]
     },
     "sdkVersion": "3",
     "shortName": "Expectant Father",
