@@ -59,16 +59,20 @@
   </body>
   <script>
   function getConfigData() {
-    var ConcepDatePicker = document.getElementById('concep_date_picker');
+    var wifeNamePicker = document.getElementById('wife_name_picker');
+    var babyNamePicker = document.getElementById('baby_name_picker');
+    var concepDatePicker = document.getElementById('concep_date_picker');
 
     var options = {
-      'concep_date': ConcepDatePicker.value,
-      'high_contrast': highContrastCheckbox.checked
+      'wife_name': wifeNamePicker.value,
+      'baby_name': babyNamePicker.value,
+      'concep_date': concepDatePicker.value
     };
 
     // Save for next launch
+    localStorage['wife_name'] = options['wife_name'];
+    localStorage['baby_name'] = options['baby_name'];
     localStorage['concep_date'] = options['concep_date'];
-    localStorage['high_contrast'] = options['high_contrast'];
 
     console.log('Got options: ' + JSON.stringify(options));
     return options;
@@ -96,15 +100,15 @@
   });
 
   (function() {
+    var wifeNamePicker = document.getElementById('wife_name_picker');
+    var babyNamePicker = document.getElementById('baby_name_picker');
     var ConcepDatePicker = document.getElementById('concep_date_picker');
-    var backgroundColorPicker = document.getElementById('background_color_picker');
-    var highContrastCheckbox = document.getElementById('high_contrast_checkbox');
 
-    // Load any previously saved configuration, if available
-    if(localStorage['high_contrast']) {
-      highContrastCheckbox.checked = JSON.parse(localStorage['high_contrast']);
-      backgroundColorPicker.value = localStorage['background_color'];
-    }
+    // // Load any previously saved configuration, if available
+    // if(localStorage['high_contrast']) {
+    //   highContrastCheckbox.checked = JSON.parse(localStorage['high_contrast']);
+    //   backgroundColorPicker.value = localStorage['background_color'];
+    // }
   })();
   </script>
 </html>
