@@ -29,14 +29,25 @@
     </div>
 
     <div class="item-container">
-      <div class="item-container-header">Pick the approximate conception date of the baby.</div>
+      <div class="item-container-header">Configuration.</div>
       <div class="item-container-content">
         <label class="item">
-          Example Item
+          <div class="item-input-wrapper">
+            <input id='wife_name_picker' type="text" class="item-input" name="input-1" placeholder="My wife">
+          </div>
+        </label>
+        <label class="item">
+          <div class="item-input-wrapper">
+            <input id='baby_name_picker' type="text" class="item-input" name="input-2" placeholder="the baby">
+          </div>
+        </label>
+        <label class="item">
+          Conception Date
           <input id='concep_date_picker' type="date" class="item-date" name="date-1" value="2015-02-12">
         </label>
       </div>
       <div class='item-container-footer'>
+        Pick the approximate conception date of the baby.
         If the resulting calculated week of pregnancy does not match, tweak this date.
       </div>
     </div>
