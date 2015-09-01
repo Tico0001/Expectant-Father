@@ -18,52 +18,28 @@
   </head>
 
   <body>
-    <h1 class='title'>Slate Example Configuration</h1>
+    <h1 class='title'>Expectant Father Configuration</h1>
 
     <div class='item-container'>
       <div class='item-container-content'>
         <div class='item'>
-          Use this configuration page to choose the settings you would like applied to this app.
+          Please select the name of your wife, the name of the baby, and the conception date.
         </div>
       </div>
     </div>
 
-    <div class='item-container'>
-      <div class='item-container-header'>Customizability</div>
-      <div class='item-container-content'>
-        <label class='item'>
-          Background Color
-          <input id='background_color_picker' type='text' class='item-color item-color-sunny' value='#000000'>
-        </label>
-      </div>
-      <div class='item-container-footer'>
-        Choose the app's background color. Used if High Contrast Mode is not selected. Note: Only available on Basalt watches that support many colors.
-      </div>
-    </div>
-    
     <div class="item-container">
-      <div class="item-container-header">Date, Time, Colorpickers</div>
+      <div class="item-container-header">Pick the approximate conception date of the baby.</div>
       <div class="item-container-content">
         <label class="item">
           Example Item
-          <input type="date" class="item-date" name="date-1" value="2015-02-12">
-        </label>
-      </div>
-    </div>
-
-    <div class='item-container'>
-      <div class='item-container-header'>Accessibility</div>
-      <div class='item-container-content'>
-        <label class='item'>
-          High Contrast Mode
-          <input id='high_contrast_checkbox' type='checkbox' class='item-toggle'>
+          <input id='concep_date_picker' type="date" class="item-date" name="date-1" value="2015-02-12">
         </label>
       </div>
       <div class='item-container-footer'>
-        This switches the app colors to a higher contrast set that promotes readability in low light.
+        If the resulting calculated week of pregnancy does not match, tweak this date.
       </div>
     </div>
-
     <div class='item-container'>
       <div class='button-container'>
         <input id='submit_button' type='button' class='item-button' value='SUBMIT'>
@@ -72,16 +48,15 @@
   </body>
   <script>
   function getConfigData() {
-    var backgroundColorPicker = document.getElementById('background_color_picker');
-    var highContrastCheckbox = document.getElementById('high_contrast_checkbox');
- 
+    var ConcepDatePicker = document.getElementById('concep_date_picker');
+
     var options = {
-      'background_color': backgroundColorPicker.value,
+      'concep_date': ConcepDatePicker.value,
       'high_contrast': highContrastCheckbox.checked
     };
 
     // Save for next launch
-    localStorage['background_color'] = options['background_color'];
+    localStorage['concep_date'] = options['concep_date'];
     localStorage['high_contrast'] = options['high_contrast'];
 
     console.log('Got options: ' + JSON.stringify(options));
@@ -110,6 +85,7 @@
   });
 
   (function() {
+    var ConcepDatePicker = document.getElementById('concep_date_picker');
     var backgroundColorPicker = document.getElementById('background_color_picker');
     var highContrastCheckbox = document.getElementById('high_contrast_checkbox');
 
