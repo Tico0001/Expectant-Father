@@ -6,7 +6,6 @@
 	#define TOP_OFFSET 0
 #endif
 	
-#define KEY_COLOR_RED     0
-#define KEY_COLOR_GREEN   1
-#define KEY_COLOR_BLUE    2
-#define KEY_HIGH_CONTRAST 3
+#define KEY_WIFE_NAME		0
+#define KEY_BABY_NAME		1
+#define KEY_CONCEP_DATE		2

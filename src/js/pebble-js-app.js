@@ -1,10 +1,10 @@
-Pebble.addEventListener('ready', function() 
+Pebble.addEventListener('ready', function(e) 
 	{
 		console.log('PebbleKit JS ready!');
 	}
 );
 
-Pebble.addEventListener('showConfiguration', function() 
+Pebble.addEventListener('showConfiguration', function(e) 
 	{
 		var url = 'https://rawgit.com/Tico0001/Expectant-Father/master/config/index.html';
 		console.log('Showing configuration page: ' + url);
@@ -12,43 +12,34 @@ Pebble.addEventListener('showConfiguration', function()
 	}
 );
 
+var sendSuccess = function(e) 
+{
+    console.log("send Success, e: " + JSON.stringify(e));
+    //console.log(
+    //    'Successfully delivered message with transactionId=' +
+    //    e.data.transactionId);
+};
+
+var sendFailure = function(e) 
+{
+    console.log("send Failure, e: " + JSON.stringify(e));
+    console.log('Unable to deliver message with transactionId=' + e.data.transactionId);
+	console.log('Error is: ' + e.data.error);
+};
+
 Pebble.addEventListener('webviewclosed', function(e)
 	{
-		var configData = JSON.parse(decodeURIComponent(e.response));
-		console.log('Configuration page returned: ' + JSON.stringify(configData));
-
-// 		var backgroundColor = configData['background_color'];
-
-// 		var dict = {};
-
-// 		if(configData['high_contrast'] === true) 
-// 		{
-// 			dict['KEY_HIGH_CONTRAST'] = configData['high_contrast'];
-// 		} 
-// 		else
-// 		{
-// 			dict['KEY_COLOR_RED'] = parseInt(backgroundColor.substring(2, 4), 16);
-// 			dict['KEY_COLOR_GREEN'] = parseInt(backgroundColor.substring(4, 6), 16);
-// 			dict['KEY_COLOR_BLUE'] = parseInt(backgroundColor.substring(6), 16);
-// 		}
+		var config_data = JSON.parse(decodeURIComponent(e.response));
+		console.log('Configuration page returned: ' + JSON.stringify(config_data));
 		
-		  // Prepare AppMessage payload
+		// Prepare AppMessage payload
 		var dict = {
-			'KEY_WIFE_NAME': config_data[wife_name],
-			'KEY_BABY_NAME': config_data[baby_name],
-			'KEY_CONCEP_DATE': config_data[concep_date]
+			'KEY_WIFE_NAME': config_data['wife_name'],
+			'KEY_BABY_NAME': config_data['baby_name'],
+			'KEY_CONCEP_DATE': config_data['concep_date']
 		};
-
+		
 		// Send to watchapp
-		Pebble.sendAppMessage(dict, 
-			function() 
-			{
-				console.log('Send successful: ' + JSON.stringify(dict));
-			}, 
-			function()
-			{
-				console.log('Send failed!');
-			}
-		);
+		Pebble.sendAppMessage(dict, sendSuccess, sendFailure);
 	}
 );

@@ -20,6 +20,7 @@ You can also modify the code to enter the name of your wife and future baby.
 int year_concep = 2015, month_concep =05, day_concep =24;
 
 Window *window;
+static TextLayer *s_output_layer;
 
 TextLayer *wifeLayer;
 TextLayer *weekLayer;
@@ -115,6 +116,53 @@ char* fruits[] = {
   "Mini Watermelon",
   "    Small Pumpkin"
 };
+
+//******************************************************************************
+//
+//******************************************************************************
+static void inbox_received_callback(DictionaryIterator *iterator, void *context)
+{
+	//test
+	APP_LOG(APP_LOG_LEVEL_ERROR, "Message received!");
+	
+	// Get the first pair
+	Tuple *t = dict_read_first(iterator);
+
+	// Process all pairs present
+	while (t != NULL) {
+	// Long lived buffer
+	static char s_buffer[64];
+
+	// Process this pair's key
+	switch (t->key) {
+		case KEY_WIFE_NAME:
+			// Copy value and display
+			APP_LOG(APP_LOG_LEVEL_ERROR, t->value->cstring);
+			break;
+		case KEY_BABY_NAME:
+			// Copy value and display
+			snprintf(s_buffer, sizeof(s_buffer), "Received '%s'", t->value->cstring);
+			text_layer_set_text(s_output_layer, s_buffer);
+			break;
+		case KEY_CONCEP_DATE:
+			// Copy value and display
+			snprintf(s_buffer, sizeof(s_buffer), "Received '%s'", t->value->cstring);
+			text_layer_set_text(s_output_layer, s_buffer);
+			break;
+		}
+
+		// Get next pair, if any
+		t = dict_read_next(iterator);
+	}
+}
+
+//******************************************************************************
+//
+//******************************************************************************
+static void inbox_dropped_callback(AppMessageResult reason, void *context)
+{
+	APP_LOG(APP_LOG_LEVEL_ERROR, "Message dropped!");
+}
 
 //******************************************************************************
 //
@@ -285,6 +333,15 @@ static void main_window_unload(Window *window)
 //******************************************************************************
 static void init() 
 {
+	// Test
+	APP_LOG(APP_LOG_LEVEL_ERROR, "Initializing...");
+	
+	// Register callbacks
+	app_message_register_inbox_received(inbox_received_callback);
+	app_message_register_inbox_dropped(inbox_dropped_callback);
+	app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
+	
+	// Creat main window
 	window = window_create();
 	
  	// Set handlers to manage the elements inside the Window
