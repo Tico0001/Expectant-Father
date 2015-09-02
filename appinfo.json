@@ -1,7 +1,11 @@
 {
-    "appKeys": {},
+    "appKeys": {
+        "KEY_BABY_NAME": 1,
+        "KEY_CONCEP_DATE": 2,
+        "KEY_WIFE_NAME": 0
+    },
     "capabilities": [
-        ""
+        "configurable"
     ],
     "companyName": "tico0001",
     "longName": "Expectant Father",
