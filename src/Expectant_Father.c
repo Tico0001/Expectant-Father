@@ -17,6 +17,8 @@ You can also modify the code to enter the name of your wife and future baby.
 #endif
 	
 //conception date
+char* wife = "My wife";
+char* baby = "the baby";
 int year_concep = 2015, month_concep =05, day_concep =24;
 
 Window *window;
@@ -134,22 +136,28 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 		switch (t->key) 
 		{
 			case KEY_WIFE_NAME:
-				APP_LOG(APP_LOG_LEVEL_DEBUG,"Entered case: KEY_WIFE_NAME");
-				APP_LOG(APP_LOG_LEVEL_DEBUG,t->value->cstring);
+				wife = t->value->cstring;
 				break;
 			case KEY_BABY_NAME:
-				APP_LOG(APP_LOG_LEVEL_DEBUG,"Entered case: KEY_BABY_NAME");
-				APP_LOG(APP_LOG_LEVEL_DEBUG,t->value->cstring);
+				baby = t->value->cstring;
 				break;
-			case KEY_CONCEP_DATE:
-				APP_LOG(APP_LOG_LEVEL_DEBUG,"Entered case: KEY_CONCEP_DATE");
-				APP_LOG(APP_LOG_LEVEL_DEBUG,t->value->cstring);
+			case KEY_CONCEP_YEAR:
+				year_concep = t->value->uint16;
 				break;
+			case KEY_CONCEP_MON:
+				month_concep = t->value->uint16;
+				break;
+			case KEY_CONCEP_DAY:
+				day_concep = t->value->uint16;
+				break;
+			
 		}
 
 		// Get next pair, if any
 		t = dict_read_next(iterator);
 	}
+	
+	update();
 }
 
 //******************************************************************************
@@ -226,22 +234,24 @@ long get_weeks()
 //******************************************************************************
 static void update()
 {
-
-	static char wifeText[] = "Sheree is    weeks pregnant."; 
-	static char weekText[] = "XX";
-	static char papaText[] = "  And Taro is the"; 
-	static char compText[] = "              ";
-	static char fruitText[] = "                 "; 
+	
+	static char* wifeText = "My wife is    weeks pregnant.";
+	static char* weekText = "XX";
+	static char* babyText = "And the baby is the"; 
+	static char* compText = "              ";
+	static char* fruitText = "                 "; 
 
 	int weeks = get_weeks();
 
 	itoa2(get_weeks(), &weekText[0]);
+	replacetxt(wife,&wifeText[0]);
+	replacetxt(baby,&babyText[4]);
 	replacetxt(comparisons[weeks],&compText[0]);
 	replacetxt(fruits[weeks],&fruitText[0]);
 
 	text_layer_set_text(wifeLayer,wifeText);
 	text_layer_set_text(weekLayer,weekText);
-	text_layer_set_text(babyLayer,papaText);
+	text_layer_set_text(babyLayer,babyText);
 	text_layer_set_text(compLayer,compText);
 	text_layer_set_text(fruitLayer,fruitText);
 }
@@ -272,7 +282,7 @@ static void main_window_load(Window *window)
 
 	// Init the text layer used to show the weeks
 	weekLayer = text_layer_create(GRect(85, TOP_OFFSET, 144-20 /* width */, 168-54 /* height */));
-	text_layer_set_text_color(weekLayer, GColorBlack);
+	text_layer_set_text_color(weekLayer, GColorRed);
 	text_layer_set_background_color(weekLayer, GColorClear);
 	text_layer_set_font(weekLayer, fonts_get_system_font(FONT_KEY_BITHAM_34_MEDIUM_NUMBERS));
 

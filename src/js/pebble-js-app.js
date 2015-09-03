@@ -36,8 +36,8 @@ Pebble.addEventListener('webviewclosed', function(e)
 		var dict = {
 			'KEY_WIFE_NAME': config_data['wife_name'],
 			'KEY_BABY_NAME': config_data['baby_name'],
-			'KEY_CONCEP_YEAR': config_data['concep_year']
-			'KEY_CONCEP_MON': config_data['concep_mon']
+			'KEY_CONCEP_YEAR': config_data['concep_year'],
+			'KEY_CONCEP_MON': config_data['concep_mon'],
 			'KEY_CONCEP_DAY': config_data['concep_day']
 		};
 		
