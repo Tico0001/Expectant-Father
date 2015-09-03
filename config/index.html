@@ -69,9 +69,9 @@
     var options = {
       'wife_name': wifeNamePicker.value,
       'baby_name': babyNamePicker.value,
-      'concep_year': parseInt(concepDatePicker.value),
-      'concep_mon': parseInt(concepDatePicker.value),
-      'concep_day': parseInt(concepDatePicker.value)
+      'concep_year': parseInt(concepDatePicker.value.substr(0,4)),
+      'concep_mon': parseInt(concepDatePicker.value.substr(5,2)),
+      'concep_day': parseInt(concepDatePicker.value.substr(8,2))
     };
     
     // Save for next launch
