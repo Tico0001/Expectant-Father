@@ -78,7 +78,7 @@
     localStorage['concep_date'] = options['concep_date'];
 
     // Test
-    console.log(''+JSON.stringify(concepDatePicker.value));
+    console.log('test: '+JSON.parse(decodeURIComponent(concepDatePicker)));
 
     console.log('Got options: ' + JSON.stringify(options));
     return options;
