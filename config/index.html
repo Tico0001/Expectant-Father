@@ -65,12 +65,15 @@
     var wifeNamePicker = document.getElementById('wife_name_picker');
     var babyNamePicker = document.getElementById('baby_name_picker');
     var concepDatePicker = document.getElementById('concep_date_picker');
-
+    
     var options = {
       'wife_name': wifeNamePicker.value,
       'baby_name': babyNamePicker.value,
       'concep_date': concepDatePicker.value
     };
+    
+    // test
+    console.log("test:" + parseInt(concepDatePicker.value));
 
     // Save for next launch
     localStorage['wife_name'] = options['wife_name'];
