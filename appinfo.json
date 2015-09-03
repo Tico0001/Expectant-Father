@@ -1,7 +1,9 @@
 {
     "appKeys": {
         "KEY_BABY_NAME": 1,
-        "KEY_CONCEP_DATE": 2,
+        "KEY_CONCEP_DAY": 4,
+        "KEY_CONCEP_MON": 3,
+        "KEY_CONCEP_YEAR": 2,
         "KEY_WIFE_NAME": 0
     },
     "capabilities": [
