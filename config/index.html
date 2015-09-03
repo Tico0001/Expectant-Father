@@ -69,13 +69,17 @@
     var options = {
       'wife_name': wifeNamePicker.value,
       'baby_name': babyNamePicker.value,
-      'concep_date': parseInt(concepDatePicker.value)
+      'concep_year': parseInt(concepDatePicker.value),
+      'concep_mon': parseInt(concepDatePicker.value),
+      'concep_day': parseInt(concepDatePicker.value)
     };
     
     // Save for next launch
     localStorage['wife_name'] = options['wife_name'];
     localStorage['baby_name'] = options['baby_name'];
-    localStorage['concep_date'] = options['concep_date'];
+    localStorage['concep_year'] = options['concep_year'];
+    localStorage['concep_mon'] = options['concep_mon'];
+    localStorage['concep_day'] = options['concep_day'];
 
     console.log('Got options: ' + JSON.stringify(options));
     return options;
