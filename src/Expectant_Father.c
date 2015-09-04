@@ -236,18 +236,27 @@ long get_weeks()
 //******************************************************************************
 static void update()
 {
+// 	// Alternative text update
+// 	static char s_body_text[18];
+// 	snprintf(s_body_text, sizeof(s_body_text), "%u Bottles", s_num_drinks);
+// 	text_layer_set_text(s_body_layer, s_body_text);
+	
 	static char wifeText[] = "My wife is    weeks pregnant.";
 	static char weekText[] = "XX";
 	static char babyText[] = "  The baby is the"; 
-	static char compText[] = "              ";
-	static char fruitText[] = "                 "; 
+// 	static char compText[] = "              ";
+// 	static char fruitText[] = "                 ";
+	static char compText[14];
+	static char fruitText[17];
 
 	int weeks = get_weeks();
 
 	itoa2(get_weeks(), &weekText[0]);
 	
-	replacetxt(comparisons[weeks],&compText[0]);
-	replacetxt(fruits[weeks],&fruitText[0]);
+// 	replacetxt(comparisons[weeks],&compText[0]);
+// 	replacetxt(fruits[weeks],&fruitText[0]);
+	snprintf(compText, sizeof(compText), "%s", comparisons[weeks]);
+	snprintf(fruitText, sizeof(fruitText), "%s", fruits[weeks]);
 
 	text_layer_set_text(wifeLayer,wifeText);
 	text_layer_set_text(weekLayer,weekText);
