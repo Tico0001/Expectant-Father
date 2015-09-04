@@ -10,7 +10,7 @@
         "configurable"
     ],
     "companyName": "tico0001",
-    "longName": "Expectant Father",
+    "longName": "Expectant Spouse",
     "projectType": "native",
     "resources": {
         "media": [
@@ -23,7 +23,7 @@
         ]
     },
     "sdkVersion": "3",
-    "shortName": "Expectant Father",
+    "shortName": "Expectant Spouse",
     "targetPlatforms": [
         "aplite",
         "basalt"
@@ -31,6 +31,6 @@
     "uuid": "52fd9834-1824-4e27-bb81-5de1c0f95e7f",
     "versionLabel": "1.0",
     "watchapp": {
-        "watchface": false
+        "watchface": true
     }
 }

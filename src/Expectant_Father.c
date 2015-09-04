@@ -236,9 +236,9 @@ long get_weeks()
 //******************************************************************************
 static void update()
 {
-	static char wifeText[] = "Sheree is    weeks pregnant.";
+	static char wifeText[] = "My wife is    weeks pregnant.";
 	static char weekText[] = "XX";
-	static char babyText[] = "  And Taro is the"; 
+	static char babyText[] = "  The baby is the"; 
 	static char compText[] = "              ";
 	static char fruitText[] = "                 "; 
 
