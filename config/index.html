@@ -76,12 +76,11 @@
       'concep_day': parseInt(concepDatePicker.value.substr(8,2))
     };
     
+    // Local Storage
     // Save for next launch
     localStorage['wife_name'] = options['wife_name'];
     localStorage['baby_name'] = options['baby_name'];
-    localStorage['concep_year'] = options['concep_year'];
-    localStorage['concep_mon'] = options['concep_mon'];
-    localStorage['concep_day'] = options['concep_day'];
+    localStorage['concep_date'] = concepDatePicker.value;
 
     console.log('Got options: ' + JSON.stringify(options));
     return options;
@@ -113,11 +112,13 @@
     var babyNamePicker = document.getElementById('baby_name_picker');
     var ConcepDatePicker = document.getElementById('concep_date_picker');
 
-    // // Load any previously saved configuration, if available
-    // if(localStorage['high_contrast']) {
-    //   highContrastCheckbox.checked = JSON.parse(localStorage['high_contrast']);
-    //   backgroundColorPicker.value = localStorage['background_color'];
-    // }
+    // Load any previously saved configuration, if available
+    if(localStorage['wife_name']) 
+    {
+      wifeNamePicker.value = localStorage['wife_name'];
+      babyNamePicker.value = localStorage['baby_name'];
+      ConcepDatePicker.value = localStorage['concep_date'];
+    }
   })();
   </script>
 </html>
