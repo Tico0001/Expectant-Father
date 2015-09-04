@@ -17,9 +17,11 @@ You can also modify the code to enter the name of your wife and future baby.
 #endif
 	
 //conception date
-char* wife = "My wife";
-char* baby = "the baby";
-int year_concep = 2015, month_concep =05, day_concep =24;
+char* wife = "          ";
+char* baby = "          ";
+int year_concep = DEFAULT_CONCEP_YEAR;
+int month_concep = DEFAULT_CONCEP_MON;
+int day_concep = DEFAULT_CONCEP_DAY;
 
 Window *window;
 
@@ -234,18 +236,16 @@ long get_weeks()
 //******************************************************************************
 static void update()
 {
-	
-	static char* wifeText = "My wife is    weeks pregnant.";
-	static char* weekText = "XX";
-	static char* babyText = "And the baby is the"; 
-	static char* compText = "              ";
-	static char* fruitText = "                 "; 
+	static char wifeText[] = "Sheree is    weeks pregnant.";
+	static char weekText[] = "XX";
+	static char babyText[] = "  And Taro is the"; 
+	static char compText[] = "              ";
+	static char fruitText[] = "                 "; 
 
 	int weeks = get_weeks();
 
 	itoa2(get_weeks(), &weekText[0]);
-	replacetxt(wife,&wifeText[0]);
-	replacetxt(baby,&babyText[4]);
+	
 	replacetxt(comparisons[weeks],&compText[0]);
 	replacetxt(fruits[weeks],&fruitText[0]);
 
@@ -342,6 +342,12 @@ static void init()
 	// Test
 	APP_LOG(APP_LOG_LEVEL_DEBUG, "Initializing...");
 	
+	// Persistent storage
+	// Get the date from persistent storage for use if it exists, otherwise use the default
+  	year_concep = persist_exists(PKEY_CONCEP_YEAR) ? persist_read_int(PKEY_CONCEP_YEAR) : DEFAULT_CONCEP_YEAR;
+	month_concep = persist_exists(PKEY_CONCEP_MON) ? persist_read_int(PKEY_CONCEP_MON) : DEFAULT_CONCEP_MON;
+	day_concep = persist_exists(PKEY_CONCEP_DAY) ? persist_read_int(PKEY_CONCEP_DAY) : DEFAULT_CONCEP_DAY;
+	
 	// Register callbacks
 	app_message_register_inbox_received(inbox_received_callback);
 	app_message_register_inbox_dropped(inbox_dropped_callback);
@@ -372,6 +378,12 @@ static void init()
 //******************************************************************************
 static void deinit() 
 {
+	// Persistent Storage
+	// Save the date into persistent storage on app exit
+	persist_write_int(PKEY_CONCEP_YEAR, year_concep);
+	persist_write_int(PKEY_CONCEP_MON, month_concep);
+	persist_write_int(PKEY_CONCEP_DAY, day_concep);
+	
 	// Destroy Window
 	window_destroy(window);
 }
