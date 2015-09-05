@@ -171,40 +171,6 @@ static void inbox_dropped_callback(AppMessageResult reason, void *context)
 }
 
 //******************************************************************************
-//
-//******************************************************************************
-void itoa2(int num, char* buffer) 
-{
-    const char digits[10] = "0123456789";
-    if(num > 99)
-	{
-        buffer[0] = '9';
-        buffer[1] = '9';
-        return;
-    }
-	else if(num > 9) 
-	{
-        buffer[0] = digits[num / 10];
-    }
-	else
-	{
-        buffer[0] = '0';
-    }
-    buffer[1] = digits[num % 10];
-}
-
-//******************************************************************************
-//
-//******************************************************************************
-void replacetxt(char str[], char* buffer) 
-{
-    for (unsigned int i = 0; i < strlen(str); i++)
-    {
-		buffer[i] = str[i];
-    }
-}
-
-//******************************************************************************
 //convert date to y_day
 //******************************************************************************
 long day_year(int d, int m, int y)
@@ -236,25 +202,20 @@ long get_weeks()
 //******************************************************************************
 static void update()
 {
-// 	// Alternative text update
-// 	static char s_body_text[18];
-// 	snprintf(s_body_text, sizeof(s_body_text), "%u Bottles", s_num_drinks);
-// 	text_layer_set_text(s_body_layer, s_body_text);
+
 	
-	static char wifeText[] = "My wife is    weeks pregnant.";
-	static char weekText[] = "XX";
-	static char babyText[] = "  The baby is the"; 
+	static char wifeText[] = "Sheree is    weeks pregnant.";
+// 	static char weekText[] = "XX";
+	static char babyText[] = "  And Taro is the"; 
 // 	static char compText[] = "              ";
 // 	static char fruitText[] = "                 ";
+	static char weekText[4];
 	static char compText[14];
 	static char fruitText[17];
 
 	int weeks = get_weeks();
 
-	itoa2(get_weeks(), &weekText[0]);
-	
-// 	replacetxt(comparisons[weeks],&compText[0]);
-// 	replacetxt(fruits[weeks],&fruitText[0]);
+	snprintf(weekText, sizeof(weekText), "%02d", weeks);
 	snprintf(compText, sizeof(compText), "%s", comparisons[weeks]);
 	snprintf(fruitText, sizeof(fruitText), "%s", fruits[weeks]);
 
