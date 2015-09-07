@@ -14,13 +14,17 @@
 #define KEY_CONCEP_MON				3
 #define KEY_CONCEP_DAY				4
 	
-#define PKEY_CONCEP_YEAR 		2
-#define PKEY_CONCEP_MON			3
-#define PKEY_CONCEP_DAY			4
-	
-#define DEFAULT_CONCEP_YEAR 	2015
-#define DEFAULT_CONCEP_MON		05
-#define DEFAULT_CONCEP_DAY		24
+#define PKEY_WIFE 					0
+#define PKEY_BABY					1
+#define PKEY_CONCEP_YEAR 			2
+#define PKEY_CONCEP_MON				3
+#define PKEY_CONCEP_DAY				4
+
+#define DEFAULT_WIFE				"My Wife"
+#define DEFAULT_BABY		 		"the baby"
+#define DEFAULT_CONCEP_YEAR 		2015
+#define DEFAULT_CONCEP_MON			05
+#define DEFAULT_CONCEP_DAY			24
 
 	
 static void update(void);

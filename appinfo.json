@@ -9,7 +9,7 @@
     "capabilities": [
         "configurable"
     ],
-    "companyName": "tico0001",
+    "companyName": "Tico0001",
     "longName": "Expectant Spouse",
     "projectType": "native",
     "resources": {
@@ -29,7 +29,7 @@
         "basalt"
     ],
     "uuid": "52fd9834-1824-4e27-bb81-5de1c0f95e7f",
-    "versionLabel": "1.1",
+    "versionLabel": "2.1",
     "watchapp": {
         "watchface": true
     }

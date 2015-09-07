@@ -16,12 +16,11 @@ You can also modify the code to enter the name of your wife and future baby.
 	static StatusBarLayer *s_status_bar;
 #endif
 	
-//conception date
-char* wife = "          ";
-char* baby = "          ";
-int year_concep = DEFAULT_CONCEP_YEAR;
-int month_concep = DEFAULT_CONCEP_MON;
-int day_concep = DEFAULT_CONCEP_DAY;
+char* wife = "wife_text";
+char* baby = "baby_text";
+int year_concep;
+int month_concep;
+int day_concep;
 
 Window *window;
 
@@ -204,18 +203,19 @@ static void update()
 {
 
 	
-	static char wifeText[] = "Sheree is    weeks pregnant.";
-// 	static char weekText[] = "XX";
-	static char babyText[] = "  And Taro is the"; 
-// 	static char compText[] = "              ";
-// 	static char fruitText[] = "                 ";
+// 	static char wifeText[] = "Sheree is    weeks pregnant.";
+// 	static char babyText[] = "  And Taro is the"; 
+	static char wifeText[30];
+	static char babyText[20];
 	static char weekText[4];
 	static char compText[14];
 	static char fruitText[17];
 
 	int weeks = get_weeks();
-
-	snprintf(weekText, sizeof(weekText), "%02d", weeks);
+	
+	snprintf(wifeText, sizeof(wifeText), "%s is    weeks pregnant.", wife);
+	snprintf(babyText, sizeof(babyText), "And %s is the", baby);
+	snprintf(weekText, sizeof(weekText), "%d", weeks);
 	snprintf(compText, sizeof(compText), "%s", comparisons[weeks]);
 	snprintf(fruitText, sizeof(fruitText), "%s", fruits[weeks]);
 
@@ -314,6 +314,29 @@ static void init()
 	
 	// Persistent storage
 	// Get the date from persistent storage for use if it exists, otherwise use the default
+// 	wife = persist_exists(PKEY_WIFE) ? persist_read_string(PKEY_WIFE, wife, 10) : DEFAULT_WIFE;
+// 	baby = persist_exists(PKEY_BABY) ? persist_read_string(PKEY_BABY, baby, 10) : DEFAULT_BABY;
+	
+	if(persist_exists(PKEY_WIFE))
+	{
+		APP_LOG(APP_LOG_LEVEL_DEBUG, "Persistent WIFE exists...");
+		persist_read_string(PKEY_WIFE, wife, 10);
+		APP_LOG(APP_LOG_LEVEL_DEBUG, "WIFE set to persistent value...");
+	}
+
+	else
+	{
+		APP_LOG(APP_LOG_LEVEL_DEBUG, "Persistent WIFE doesn't exist...");
+		wife = DEFAULT_WIFE;
+		APP_LOG(APP_LOG_LEVEL_DEBUG, "WIFE set to DEFAULT...");
+	}
+
+	
+	if(persist_exists(PKEY_BABY))
+		persist_read_string(PKEY_BABY, baby, 10);
+	else
+		baby = DEFAULT_BABY;
+		
   	year_concep = persist_exists(PKEY_CONCEP_YEAR) ? persist_read_int(PKEY_CONCEP_YEAR) : DEFAULT_CONCEP_YEAR;
 	month_concep = persist_exists(PKEY_CONCEP_MON) ? persist_read_int(PKEY_CONCEP_MON) : DEFAULT_CONCEP_MON;
 	day_concep = persist_exists(PKEY_CONCEP_DAY) ? persist_read_int(PKEY_CONCEP_DAY) : DEFAULT_CONCEP_DAY;
@@ -350,12 +373,19 @@ static void deinit()
 {
 	// Persistent Storage
 	// Save the date into persistent storage on app exit
+	persist_write_string(PKEY_WIFE, wife);
+	persist_write_string(PKEY_BABY, baby);
 	persist_write_int(PKEY_CONCEP_YEAR, year_concep);
 	persist_write_int(PKEY_CONCEP_MON, month_concep);
 	persist_write_int(PKEY_CONCEP_DAY, day_concep);
 	
+	APP_LOG(APP_LOG_LEVEL_DEBUG, "%s", wife);
+	
 	// Destroy Window
 	window_destroy(window);
+	
+	// Test
+	APP_LOG(APP_LOG_LEVEL_DEBUG, "Deinitialized!");
 }
 
 //******************************************************************************
