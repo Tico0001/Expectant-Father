@@ -314,6 +314,10 @@ static void main_window_unload(Window *window)
 	text_layer_destroy(babyLayer);
 	text_layer_destroy(compLayer);
 	text_layer_destroy(fruitLayer);
+	
+	#ifdef PBL_PLATFORM_BASALT
+		status_bar_layer_destroy(s_status_bar);
+	#endif
 }
 
 //******************************************************************************
