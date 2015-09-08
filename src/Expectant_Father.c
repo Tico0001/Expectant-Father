@@ -25,6 +25,7 @@ int day_concep;
 Window *window;
 
 TextLayer *wifeLayer;
+TextLayer *pregLayer;
 TextLayer *weekLayer;
 TextLayer *babyLayer;
 TextLayer *compLayer;
@@ -201,24 +202,23 @@ long get_weeks()
 //******************************************************************************
 static void update()
 {
-
-	
-// 	static char wifeText[] = "Sheree is    weeks pregnant.";
-// 	static char babyText[] = "  And Taro is the"; 
 	static char wifeText[30];
 	static char babyText[20];
 	static char weekText[4];
 	static char compText[14];
 	static char fruitText[17];
+	static char pregText[] = "weeks pregnant.";
 
 	int weeks = get_weeks();
 	
-	snprintf(wifeText, sizeof(wifeText), "%s is    weeks pregnant.", wife);
+// 	snprintf(wifeText, sizeof(wifeText), "%s is    weeks pregnant.", wife);
+	snprintf(wifeText, sizeof(wifeText), "%s is", wife);
 	snprintf(babyText, sizeof(babyText), "And %s is the", baby);
 	snprintf(weekText, sizeof(weekText), "%d", weeks);
 	snprintf(compText, sizeof(compText), "%s", comparisons[weeks]);
 	snprintf(fruitText, sizeof(fruitText), "%s", fruits[weeks]);
 
+	text_layer_set_text(pregLayer,pregText);
 	text_layer_set_text(wifeLayer,wifeText);
 	text_layer_set_text(weekLayer,weekText);
 	text_layer_set_text(babyLayer,babyText);
@@ -255,13 +255,19 @@ static void main_window_load(Window *window)
 	text_layer_set_text_color(weekLayer, GColorRed);
 	text_layer_set_background_color(weekLayer, GColorClear);
 	text_layer_set_font(weekLayer, fonts_get_system_font(FONT_KEY_BITHAM_34_MEDIUM_NUMBERS));
-
+	
+	// Init the text layer used to show "weeks pregnant"
+	pregLayer = text_layer_create(GRect(5, 35 + TOP_OFFSET, 144-20 /* width */, 168-54 /* height */));
+	text_layer_set_text_color(pregLayer, GColorBlack);
+	text_layer_set_background_color(pregLayer, GColorClear);
+	text_layer_set_font(pregLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
+		
 	// Init the text layer used to show the wife
 	wifeLayer = text_layer_create(GRect(5, 10 + TOP_OFFSET, 144-20 /* width */, 168-54 /* height */));
 	text_layer_set_text_color(wifeLayer, GColorBlack);
 	text_layer_set_background_color(wifeLayer, GColorClear);
 	text_layer_set_font(wifeLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
-
+		
 	// Init the text layer used to show the baby
 	babyLayer = text_layer_create(GRect(0, 70 + TOP_OFFSET, 144 /* width */, 168-54 /* height */));
 	text_layer_set_text_color(babyLayer, GColorWhite);
@@ -285,6 +291,7 @@ static void main_window_load(Window *window)
 	
 	// Add it as a child layer to the Window's root layer
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(wifeLayer));
+	layer_add_child(window_get_root_layer(window), text_layer_get_layer(pregLayer));
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(weekLayer));
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(babyLayer));
 	layer_add_child(window_get_root_layer(window), text_layer_get_layer(compLayer));
@@ -298,6 +305,7 @@ static void main_window_unload(Window *window)
 {
 	//Destroy TextLayers
 	text_layer_destroy(wifeLayer);
+	text_layer_destroy(pregLayer);
 	text_layer_destroy(weekLayer);
 	text_layer_destroy(babyLayer);
 	text_layer_destroy(compLayer);
@@ -312,25 +320,10 @@ static void init()
 	// Test
 	APP_LOG(APP_LOG_LEVEL_DEBUG, "Initializing...");
 	
-	// Persistent storage
-	// Get the date from persistent storage for use if it exists, otherwise use the default
-// 	wife = persist_exists(PKEY_WIFE) ? persist_read_string(PKEY_WIFE, wife, 10) : DEFAULT_WIFE;
-// 	baby = persist_exists(PKEY_BABY) ? persist_read_string(PKEY_BABY, baby, 10) : DEFAULT_BABY;
-	
 	if(persist_exists(PKEY_WIFE))
-	{
-		APP_LOG(APP_LOG_LEVEL_DEBUG, "Persistent WIFE exists...");
 		persist_read_string(PKEY_WIFE, wife, 10);
-		APP_LOG(APP_LOG_LEVEL_DEBUG, "WIFE set to persistent value...");
-	}
-
 	else
-	{
-		APP_LOG(APP_LOG_LEVEL_DEBUG, "Persistent WIFE doesn't exist...");
 		wife = DEFAULT_WIFE;
-		APP_LOG(APP_LOG_LEVEL_DEBUG, "WIFE set to DEFAULT...");
-	}
-
 	
 	if(persist_exists(PKEY_BABY))
 		persist_read_string(PKEY_BABY, baby, 10);
