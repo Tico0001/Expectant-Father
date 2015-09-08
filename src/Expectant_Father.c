@@ -239,12 +239,16 @@ static void tick_handler(struct tm *tick_time, TimeUnits units_changed)
 //******************************************************************************
 static void main_window_load(Window *window)
 { 
-	// If Basalt, add status bar with time
+	// Add status bar with time
 	#ifdef PBL_PLATFORM_BASALT
 		Layer *window_layer = window_get_root_layer(window);
 		// Set up the status bar last to ensure it is on top of other Layers
 		s_status_bar = status_bar_layer_create();
 		layer_add_child(window_layer, status_bar_layer_get_layer(s_status_bar));
+	#endif
+		
+	#ifdef PBL_PLATFORM_APLITE
+		 window_set_fullscreen(window, false);
 	#endif
 	
 	// Set background color
