@@ -28,4 +28,3 @@
 
 	
 static void update(void);
-void replacetxt(char str[], char* buffer) ;
