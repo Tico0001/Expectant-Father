@@ -31,96 +31,148 @@ TextLayer *babyLayer;
 TextLayer *compLayer;
 TextLayer *fruitLayer;
 
+// List of comparisons
 char* comparisons[] = {
-  "  size of a ", 			//0
-  "  size of a ",
-  "  size of a ",
-  "  size of a ",
-  "  size of a ", 
-  "  size of a ", 
-  "  size of a ",
-  "  size of a ",
-  "  size of a ",
-  "  size of a ",
-  "  size of a ",			//10
-  "  size of a ",
-  "  size of a ",
-  "  size of a ",
-  "  size of a ",
-  "  size of an ",
-  "  size of an ",
-  "  weight of a ",
-  "  length of a ",
-  "  length of a ",
-  "  length of a ",			//20
-  "  weight of a ",
-  "  weight of a ",
-  "  weight of a ",
-  "  length of an ",
-  "  weight of a ",
-  "  length of a ",
-  "  weight of a ",
-  "  weight of a ",
-  "  weight of a ",
-  "  weight of a ",			//30
-  "  weight of a ",
-  "  weight of a ",
-  "  weight of a ",
-  "  weight of a ",
-  "  weight of a ",
-  "  weight of a ",
-  "  length of a ",
-  "  length of a ",
-  "  weight of a ",
-  "  size of a "			//40
+	"size of a", 			//0
+	"size of a",
+	"size of a",
+	"size of a",
+	"size of a", 
+	"size of a", 
+	"size of a",
+	"size of a",
+	"size of a",
+	"size of a",
+	"size of a",			//10
+	"size of a",
+	"size of a",
+	"size of a",
+	"size of a",
+	"size of an",
+	"size of an",
+	"weight of a",
+	"length of a",
+	"length of a",
+	"length of a",			//20
+	"weight of a",
+	"weight of a",
+	"weight of a",
+	"length of an",
+	"weight of a",
+	"length of a",
+	"weight of a",
+	"weight of a",
+	"weight of a",
+	"weight of a",			//30
+	"weight of a",
+	"weight of a",
+	"weight of a",
+	"weight of a",
+	"weight of a",
+	"weight of a",
+	"length of a",
+	"length of a",
+	"weight of a",
+	"size of a"			//40
 };
 
+// List of fruits to compare to
 char* fruits[] = {
-  "    dot",				//0
-  "    dot", 
-  "    dot", 
-  "    dot", 
-  "    poppy seed",
-  "   sesame seed",
-  "    lentil",
-  "    blueberry",
-  "    bean",
-  "    grape",
-  "    kumquat",			//10
-  "    fig",
-  "    lime",
-  "    shrimp",
-  "    lemon",
-  "    apple",
-  "    avocado",
-  "    turnip",
-  "    bell pepper",
-  "    mango",
-  "    Banana",				//20
-  "    Pomegranate",
-  "    Papaya",
-  "    Grapefruit",
-  "    Ear of Corn",
-  "    Cauliflower",
-  "    Lettuce",
-  "    Rutabaga",
-  "    Eggplant",
-  "    Butternut",
-  "    Cucumber",			//30
-  "    Pineapple",
-  "    Jicama",
-  "    Durian",
-  "    Cantaloupe",
-  "    Honeydew",
-  "    Big Coconut",
-  "    Leek",
-  "    Rhubarb",
-  "Mini Watermelon",
-  "    Small Pumpkin"		//40
+	"dot",				//0
+	"dot",
+	"dot",
+	"dot",
+	"poppyseed",
+	"sesameseed",
+	"lentil",
+	"blueberry",
+	"bean",
+	"grape",
+	"kumquat",			//10
+	"fig",
+	"lime",
+	"shrimp",
+	"lemon",
+	"apple",
+	"avocado",
+	"turnip",
+	"bellpepper",
+	"mango",
+	"Banana",			//20
+	"Pomegranate",
+	"Papaya",
+	"Grapefruit",
+	"EarofCorn",
+	"Cauliflower",
+	"Lettuce",
+	"Rutabaga",
+	"Eggplant",
+	"Butternut",
+	"Cucumber",			//30
+	"Pineapple",
+	"Jicama",
+	"Durian",
+	"Cantaloupe",
+	"Honeydew",
+	"BigCoconut",
+	"Leek",
+	"Rhubarb",
+	"MiniWatermelon",
+	"SmallPumpkin"		//40
 };
+
+GColor colors[41];
 
 //******************************************************************************
-//
+// init_colors
+//******************************************************************************
+void init_colors(void)
+{
+	colors[	0	]	=	GColorWhite;	
+	colors[	1	]	=	GColorWhite; 	
+	colors[	2	]	=	GColorWhite; 	
+	colors[	3	]	=	GColorWhite; 	
+	colors[	4	]	=	GColorWhite;	
+	colors[	5	]	=	COLOR_FALLBACK(GColorWindsorTan, GColorWhite);	
+	colors[	6	]	=	COLOR_FALLBACK(GColorWindsorTan, GColorWhite);	
+	colors[	7	]	=	COLOR_FALLBACK(GColorIndigo, GColorWhite);	
+	colors[	8	]	=	COLOR_FALLBACK(GColorWindsorTan, GColorWhite);	
+	colors[	9	]	=	COLOR_FALLBACK(GColorBulgarianRose, GColorWhite);	
+	colors[	10	]	=	COLOR_FALLBACK(GColorChromeYellow, GColorWhite);	
+	colors[	11	]	=	COLOR_FALLBACK(GColorLimerick, GColorWhite);	
+	colors[	12	]	=	COLOR_FALLBACK(GColorIslamicGreen, GColorWhite);	
+	colors[	13	]	=	COLOR_FALLBACK(GColorMelon, GColorWhite);	
+	colors[	14	]	=	COLOR_FALLBACK(GColorYellow, GColorWhite);	
+	colors[	15	]	=	COLOR_FALLBACK(GColorRed, GColorWhite);	
+	colors[	16	]	=	COLOR_FALLBACK(GColorJaegerGreen, GColorWhite);	
+	colors[	17	]	=	COLOR_FALLBACK(GColorPurpureus, GColorWhite);	
+	colors[	18	]	=	COLOR_FALLBACK(GColorDarkCandyAppleRed, GColorWhite);	
+	colors[	19	]	=	COLOR_FALLBACK(GColorRajah, GColorWhite);	
+	colors[	20	]	=	COLOR_FALLBACK(GColorYellow, GColorWhite);	
+	colors[	21	]	=	COLOR_FALLBACK(GColorDarkCandyAppleRed, GColorWhite);	
+	colors[	22	]	=	COLOR_FALLBACK(GColorYellow, GColorWhite);	
+	colors[	23	]	=	COLOR_FALLBACK(GColorFolly, GColorWhite);	
+	colors[	24	]	=	COLOR_FALLBACK(GColorIcterine, GColorWhite);	
+	colors[	25	]	=	GColorWhite;	
+	colors[	26	]	=	COLOR_FALLBACK(GColorKellyGreen, GColorWhite);	
+	colors[	27	]	=	COLOR_FALLBACK(GColorPastelYellow, GColorWhite);	
+	colors[	28	]	=	COLOR_FALLBACK(GColorPurple, GColorWhite);	
+	colors[	29	]	=	COLOR_FALLBACK(GColorPastelYellow, GColorWhite);	
+	colors[	30	]	=	COLOR_FALLBACK(GColorDarkGreen, GColorWhite);	
+	colors[	31	]	=	COLOR_FALLBACK(GColorPastelYellow, GColorWhite);	
+	colors[	32	]	=	COLOR_FALLBACK(GColorPastelYellow, GColorWhite);	
+	colors[	33	]	=	COLOR_FALLBACK(GColorBrightGreen, GColorWhite);	
+	colors[	34	]	=	COLOR_FALLBACK(GColorRajah, GColorWhite);	
+	colors[	35	]	=	COLOR_FALLBACK(GColorMintGreen, GColorWhite);	
+	colors[	36	]	=	GColorWhite;	
+	colors[	37	]	=	COLOR_FALLBACK(GColorGreen, GColorWhite);	
+	colors[	38	]	=	COLOR_FALLBACK(GColorRed, GColorWhite);	
+	colors[	39	]	=	COLOR_FALLBACK(GColorIslamicGreen, GColorWhite);	
+	colors[	40	]	=	COLOR_FALLBACK(GColorOrange, GColorWhite);			//40
+}
+
+//******************************************************************************
+// inbox_received_callback
 //******************************************************************************
 static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 {
@@ -162,7 +214,7 @@ static void inbox_received_callback(DictionaryIterator *iterator, void *context)
 }
 
 //******************************************************************************
-//
+// inbox_dropped_callback
 //******************************************************************************
 static void inbox_dropped_callback(AppMessageResult reason, void *context)
 {
@@ -227,9 +279,10 @@ static void update()
 		snprintf(fruitText, sizeof(fruitText), "sweet dream");
 		
 		text_layer_set_font(weekLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
+		text_layer_set_text_color(fruitLayer, COLOR_FALLBACK(GColorRichBrilliantLavender, GColorWhite));
 	}
 	// if weeks is more than 40
-	else if(weeks > 40)
+	else if(weeks > 41)
 	{
 		APP_LOG(APP_LOG_LEVEL_DEBUG, "Entered week > 40 IF");
 		snprintf(wifeText, sizeof(wifeText), "%s is no", wife);
@@ -240,6 +293,7 @@ static void update()
 		snprintf(fruitText, sizeof(fruitText), "%d weeks old", weeks - 40);
 		
 		text_layer_set_font(weekLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
+		text_layer_set_text_color(fruitLayer, COLOR_FALLBACK(GColorRed, GColorWhite));
 	}
 	// If weeks is a "normal" value
 	else
@@ -253,6 +307,7 @@ static void update()
 		snprintf(fruitText, sizeof(fruitText), "%s", fruits[weeks]);
 		
 		text_layer_set_font(weekLayer, fonts_get_system_font(FONT_KEY_BITHAM_34_MEDIUM_NUMBERS));
+		text_layer_set_text_color(fruitLayer, colors[weeks]);
 	}
 
 
@@ -295,8 +350,8 @@ static void main_window_load(Window *window)
 	window_set_background_color(window, GColorWhite);
 
 	// Init the text layer used to show the weeks
-	weekLayer = text_layer_create(GRect(85, TOP_OFFSET, 144-20 /* width */, 168-54 /* height */));
-	text_layer_set_text_color(weekLayer, GColorRed);
+	weekLayer = text_layer_create(GRect(100, TOP_OFFSET, 144-20 /* width */, 168-54 /* height */));
+	text_layer_set_text_color(weekLayer, COLOR_FALLBACK(GColorRed, GColorBlack));
 	text_layer_set_background_color(weekLayer, GColorClear);
 	text_layer_set_font(weekLayer, fonts_get_system_font(FONT_KEY_BITHAM_34_MEDIUM_NUMBERS));
 		
@@ -308,10 +363,11 @@ static void main_window_load(Window *window)
 	text_layer_set_text_alignment(pregLayer, GTextAlignmentCenter);
 		
 	// Init the text layer used to show the wife
-	wifeLayer = text_layer_create(GRect(5, 10 + TOP_OFFSET, 144-20 /* width */, 168-54 /* height */));
+	wifeLayer = text_layer_create(GRect(5, 10 + TOP_OFFSET, 144-55 /* width */, 168-54 /* height */));
 	text_layer_set_text_color(wifeLayer, GColorBlack);
 	text_layer_set_background_color(wifeLayer, GColorClear);
 	text_layer_set_font(wifeLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
+	text_layer_set_text_alignment(wifeLayer, GTextAlignmentRight);
 		
 	// Init the text layer used to show the baby
 	babyLayer = text_layer_create(GRect(0, 70 + TOP_OFFSET, 144 /* width */, 168-54 /* height */));
@@ -401,6 +457,8 @@ static void init()
 	
 	// Show the Window on the watch, with animated=true
 	window_stack_push(window, true);
+	
+	init_colors();
 	
 	// Update text layers
 	update();
