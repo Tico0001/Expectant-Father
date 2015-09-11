@@ -82,27 +82,27 @@ char* fruits[] = {
 	"dot",
 	"dot",
 	"dot",
-	"poppyseed",
-	"sesameseed",
-	"lentil",
-	"blueberry",
-	"bean",
-	"grape",
-	"kumquat",			//10
-	"fig",
-	"lime",
-	"shrimp",
-	"lemon",
-	"apple",
-	"avocado",
+	"Poppy seed",
+	"Sesame seed",
+	"Lentil",
+	"Blueberry",
+	"Bean",
+	"Grape",
+	"Kumquat",			//10
+	"Fig",
+	"Lime",
+	"Shrimp",
+	"Lemon",
+	"Apple",
+	"Avocado",
 	"turnip",
-	"bellpepper",
-	"mango",
+	"Bell pepper",
+	"Mango",
 	"Banana",			//20
 	"Pomegranate",
 	"Papaya",
 	"Grapefruit",
-	"EarofCorn",
+	"Ear of Corn",
 	"Cauliflower",
 	"Lettuce",
 	"Rutabaga",
@@ -114,11 +114,11 @@ char* fruits[] = {
 	"Durian",
 	"Cantaloupe",
 	"Honeydew",
-	"BigCoconut",
+	"Big Coconut",
 	"Leek",
 	"Rhubarb",
-	"MiniWatermelon",
-	"SmallPumpkin"		//40
+	"Mini Watermelon",
+	"Small Pumpkin"		//40
 };
 
 GColor colors[41];
@@ -271,13 +271,14 @@ static void update()
 	if(weeks < 0)
 	{
 		APP_LOG(APP_LOG_LEVEL_DEBUG, "Entered week < 0 IF");
-		snprintf(wifeText, sizeof(wifeText), "%s is not", wife);
-		snprintf(weekText, sizeof(weekText), " ");
+		snprintf(wifeText, sizeof(wifeText), "%s is", wife);
+		snprintf(weekText, sizeof(weekText), "not");
 		snprintf(pregText, sizeof(pregText), "pregnant yet!");
 		snprintf(babyText, sizeof(babyText), "And %s is", baby);
 		snprintf(compText, sizeof(compText), "only a");
 		snprintf(fruitText, sizeof(fruitText), "sweet dream");
 		
+		layer_set_hidden(text_layer_get_layer(weekLayer), true);
 		text_layer_set_font(weekLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
 		text_layer_set_text_color(fruitLayer, COLOR_FALLBACK(GColorRichBrilliantLavender, GColorWhite));
 	}
@@ -285,13 +286,14 @@ static void update()
 	else if(weeks > 41)
 	{
 		APP_LOG(APP_LOG_LEVEL_DEBUG, "Entered week > 40 IF");
-		snprintf(wifeText, sizeof(wifeText), "%s is no", wife);
-		snprintf(weekText, sizeof(weekText), " ");
+		snprintf(wifeText, sizeof(wifeText), "%s is", wife);
+		snprintf(weekText, sizeof(weekText), "no");
 		snprintf(pregText, sizeof(pregText), "longer pregnant!");
 		snprintf(babyText, sizeof(babyText), "And %s is", baby);
 		snprintf(compText, sizeof(compText), "about");
 		snprintf(fruitText, sizeof(fruitText), "%d weeks old", weeks - 40);
 		
+		layer_set_hidden(text_layer_get_layer(weekLayer), true);
 		text_layer_set_font(weekLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
 		text_layer_set_text_color(fruitLayer, COLOR_FALLBACK(GColorRed, GColorWhite));
 	}
@@ -306,6 +308,7 @@ static void update()
 		snprintf(compText, sizeof(compText), "%s", comparisons[weeks]);
 		snprintf(fruitText, sizeof(fruitText), "%s", fruits[weeks]);
 		
+		layer_set_hidden(text_layer_get_layer(weekLayer), false);
 		text_layer_set_font(weekLayer, fonts_get_system_font(FONT_KEY_BITHAM_34_MEDIUM_NUMBERS));
 		text_layer_set_text_color(fruitLayer, colors[weeks]);
 	}
@@ -348,6 +351,13 @@ static void main_window_load(Window *window)
 	
 	// Set background color
 	window_set_background_color(window, GColorWhite);
+	
+	// Init the text layer used to show the wife
+	wifeLayer = text_layer_create(GRect(5, 10 + TOP_OFFSET, 144-55 /* width */, 168-54 /* height */));
+	text_layer_set_text_color(wifeLayer, GColorBlack);
+	text_layer_set_background_color(wifeLayer, GColorClear);
+	text_layer_set_font(wifeLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
+	text_layer_set_text_alignment(wifeLayer, GTextAlignmentRight);
 
 	// Init the text layer used to show the weeks
 	weekLayer = text_layer_create(GRect(100, TOP_OFFSET, 144-20 /* width */, 168-54 /* height */));
@@ -361,32 +371,25 @@ static void main_window_load(Window *window)
 	text_layer_set_background_color(pregLayer, GColorClear);
 	text_layer_set_font(pregLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
 	text_layer_set_text_alignment(pregLayer, GTextAlignmentCenter);
-		
-	// Init the text layer used to show the wife
-	wifeLayer = text_layer_create(GRect(5, 10 + TOP_OFFSET, 144-55 /* width */, 168-54 /* height */));
-	text_layer_set_text_color(wifeLayer, GColorBlack);
-	text_layer_set_background_color(wifeLayer, GColorClear);
-	text_layer_set_font(wifeLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
-	text_layer_set_text_alignment(wifeLayer, GTextAlignmentRight);
-		
+				
 	// Init the text layer used to show the baby
-	babyLayer = text_layer_create(GRect(0, 70 + TOP_OFFSET, 144 /* width */, 168-54 /* height */));
+	babyLayer = text_layer_create(GRect(0, 65 + TOP_OFFSET, 144 /* width */, 168-54 /* height */));
 	text_layer_set_text_color(babyLayer, GColorWhite);
 	text_layer_set_background_color(babyLayer, GColorBlack);
 	text_layer_set_font(babyLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
 	text_layer_set_text_alignment(babyLayer, GTextAlignmentCenter);
 
 	// Init the text layer used to show the comparison
-	compLayer = text_layer_create(GRect(0, 97 + TOP_OFFSET, 144 /* width */, 168-54 /* height */));
+	compLayer = text_layer_create(GRect(0, 90 + TOP_OFFSET, 144 /* width */, 168-54 /* height */));
 	text_layer_set_text_color(compLayer, GColorWhite);
 	text_layer_set_background_color(compLayer, GColorBlack);
 	text_layer_set_font(compLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
 	text_layer_set_text_alignment(compLayer, GTextAlignmentCenter);
 
 	// Init the text layer used to show the fruit
-	fruitLayer = text_layer_create(GRect(0, 125 + TOP_OFFSET, 144 /* width */, 168-54 /* height */));
+	fruitLayer = text_layer_create(GRect(0, 115 + TOP_OFFSET, 144 /* width */, 168-54 /* height */));
 	text_layer_set_text_color(fruitLayer, GColorWhite);
-	text_layer_set_background_color(fruitLayer, GColorBlack);
+	text_layer_set_background_color(fruitLayer, GColorClear);
 	text_layer_set_font(fruitLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
 	text_layer_set_text_alignment(fruitLayer, GTextAlignmentCenter);
 	
