@@ -299,7 +299,7 @@ static void update()
 	{
 		APP_LOG(APP_LOG_LEVEL_DEBUG, "Entered week normal IF");
 		snprintf(wifeText, sizeof(wifeText), "%s is", wife);
-		snprintf(weekText, sizeof(weekText), "%d", weeks);
+		snprintf(weekText, sizeof(weekText), "%02d", weeks);
 		snprintf(pregText, sizeof(pregText), "weeks pregnant");
 		snprintf(babyText, sizeof(babyText), "And %s is the", baby);
 		snprintf(compText, sizeof(compText), "%s", comparisons[weeks]);
