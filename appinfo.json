@@ -26,10 +26,11 @@
     "shortName": "Expectant Spouse",
     "targetPlatforms": [
         "aplite",
-        "basalt"
+        "basalt",
+        "chalk"
     ],
     "uuid": "52fd9834-1824-4e27-bb81-5de1c0f95e7f",
-    "versionLabel": "2.4",
+    "versionLabel": "2.5",
     "watchapp": {
         "watchface": true
     }
