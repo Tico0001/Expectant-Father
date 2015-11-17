@@ -341,7 +341,7 @@ static void main_window_load(Window *window)
 	text_layer_set_background_color(backColorLayer, GColorWhite);
 	
 	// Init the text layer used to show the wife
-	wifeLayer = text_layer_create(GRect(10, 10 + TOP_OFFSET, bounds.size.w/2 /* width */, bounds.size.h/6 /* height */));
+	wifeLayer = text_layer_create(GRect(10, 10 + TOP_OFFSET, bounds.size.w/2 /* width */, bounds.size.h/5 /* height */));
 	text_layer_set_text_color(wifeLayer, GColorBlack);
 	text_layer_set_background_color(wifeLayer, GColorClear);
 	text_layer_set_font(wifeLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
@@ -355,28 +355,28 @@ static void main_window_load(Window *window)
 	text_layer_set_text_alignment(weekLayer, GTextAlignmentLeft);
 		
 	// Init the text layer used to show "weeks pregnant"
-	pregLayer = text_layer_create(GRect(0, 35 + TOP_OFFSET, bounds.size.w /* width */, bounds.size.h/6 /* height */));
+	pregLayer = text_layer_create(GRect(0, 35 + TOP_OFFSET, bounds.size.w /* width */, bounds.size.h/5 /* height */));
 	text_layer_set_text_color(pregLayer, GColorBlack);
 	text_layer_set_background_color(pregLayer, GColorClear);
 	text_layer_set_font(pregLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));
 	text_layer_set_text_alignment(pregLayer, GTextAlignmentCenter);
 				
 	// Init the text layer used to show the baby
-	babyLayer = text_layer_create(GRect(0, 65 + TOP_OFFSET, bounds.size.w /* width */, bounds.size.h/6 /* height */));
+	babyLayer = text_layer_create(GRect(0, 65 + TOP_OFFSET, bounds.size.w /* width */, bounds.size.h/5 /* height */));
 	text_layer_set_text_color(babyLayer, GColorWhite);
 	text_layer_set_background_color(babyLayer, GColorBlack);
 	text_layer_set_font(babyLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
 	text_layer_set_text_alignment(babyLayer, GTextAlignmentCenter);
 
 	// Init the text layer used to show the comparison
-	compLayer = text_layer_create(GRect(0, 90 + TOP_OFFSET, bounds.size.w /* width */, bounds.size.h/6 /* height */));
+	compLayer = text_layer_create(GRect(0, 90 + TOP_OFFSET, bounds.size.w /* width */, bounds.size.h/5 /* height */));
 	text_layer_set_text_color(compLayer, GColorWhite);
 	text_layer_set_background_color(compLayer, GColorBlack);
 	text_layer_set_font(compLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24));
 	text_layer_set_text_alignment(compLayer, GTextAlignmentCenter);
 
 	// Init the text layer used to show the fruit
-	fruitLayer = text_layer_create(GRect(0, 120 + TOP_OFFSET, bounds.size.w /* width */, bounds.size.h/6 /* height */));
+	fruitLayer = text_layer_create(GRect(0, 120 + TOP_OFFSET, bounds.size.w /* width */, bounds.size.h/5 /* height */));
 	text_layer_set_text_color(fruitLayer, GColorWhite);
 	text_layer_set_background_color(fruitLayer, GColorBlack);
 	text_layer_set_font(fruitLayer, fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD));

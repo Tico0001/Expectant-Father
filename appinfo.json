@@ -22,12 +22,16 @@
             }
         ]
     },
-    "sdkVersion": "2",
+    "sdkVersion": "3",
     "shortName": "Expectant Spouse",
+    "targetPlatforms": [
+        "aplite",
+        "basalt",
+        "chalk"
+    ],
     "uuid": "52fd9834-1824-4e27-bb81-5de1c0f95e7f",
-    "versionCode": 1,
     "versionLabel": "3.0",
     "watchapp": {
-        "watchface": false
+        "watchface": true
     }
 }
